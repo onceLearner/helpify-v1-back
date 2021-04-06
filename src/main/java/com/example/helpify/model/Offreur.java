@@ -1,7 +1,9 @@
 package com.example.helpify.model;
 
-//Non terminee
+import javax.persistence.Entity;
 
+//Non terminee
+@Entity
 public class Offreur extends User {
     private String description;
     private Evaluation[] evaluations;

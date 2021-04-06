@@ -1,7 +1,16 @@
 package com.example.helpify.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+@Entity
 public class Demande {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
+    private long idUser;
     private String titre;
     private String categorie;
     private String description;
@@ -11,8 +20,9 @@ public class Demande {
     public Demande() {
     }
 
-    public Demande(long id, String titre, String categorie, String description, String adresse, String etat) {
+    public Demande(long id, long idUser, String titre, String categorie, String description, String adresse, String etat) {
         this.id = id;
+        this.idUser = idUser;
         this.titre = titre;
         this.categorie = categorie;
         this.description = description;
@@ -24,6 +34,7 @@ public class Demande {
     public String toString() {
         return "Demande{" +
                 "id=" + id +
+                ", idUser=" + idUser +
                 ", titre='" + titre + '\'' +
                 ", categorie='" + categorie + '\'' +
                 ", description='" + description + '\'' +
@@ -34,6 +45,13 @@ public class Demande {
 
     public long getId() {
         return id;
+    }
+    public long getIdUser() {
+        return idUser;
+    }
+
+    public void setIdUser(long idUser) {
+        this.idUser = idUser;
     }
 
     public void setId(long id) {
