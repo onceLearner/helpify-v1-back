@@ -103,15 +103,15 @@ public class User {
 
     @Override
     public String toString() {
-        return "User{" +
-                "id=" + id +
-                ", nom='" + nom + '\'' +
-                ", prenom='" + prenom + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", telephone='" + telephone + '\'' +
-                ", sexe='" + sexe + '\'' +
-                ", email='" + email + '\'' +
-                ", password='" + password + '\'' +
+        return "{" +
+                "id:" + id +
+                ", nom:'" + nom + '\'' +
+                ", prenom:'" + prenom + '\'' +
+                ", adresse:'" + adresse + '\'' +
+                ", telephone:'" + telephone + '\'' +
+                ", sexe:'" + sexe + '\'' +
+                ", email:'" + email + '\'' +
+                ", password:'" + password + '\'' +
                 '}';
     }
 }
