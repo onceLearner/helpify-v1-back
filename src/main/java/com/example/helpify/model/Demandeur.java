@@ -1,6 +1,6 @@
 package com.example.helpify.model;
 
-public class Demandeur extends User{
+public class Demandeur {
     private Demande[] demandes;
     private Evaluation[] evaluations;
 

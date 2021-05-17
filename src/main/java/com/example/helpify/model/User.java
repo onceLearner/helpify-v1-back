@@ -4,7 +4,7 @@ import javax.persistence.*;
 import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "Users")
 public class User {
 
     @Id
@@ -17,6 +17,12 @@ public class User {
     private String sexe;
     private String email;
     private String password;
+
+    @OneToMany
+    @JoinColumn(name="id")
+
+    private Set<Offre> offres;
+
     public User(){
 
      }
