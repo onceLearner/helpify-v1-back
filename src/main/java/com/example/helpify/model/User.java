@@ -19,9 +19,11 @@ public class User {
     private String password;
 
     @OneToMany
-    @JoinColumn(name="id")
-
     private Set<Offre> offres;
+
+    @OneToMany
+    private Set<Demande> demandes;
+
 
     public User(){
 
@@ -32,7 +34,7 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String nom, String prenom, String adresse, String telephone, String sexe, String email, String password) {
+    public User(Long id, String nom, String prenom, String adresse, String telephone, String sexe, String email, String password, Set<Offre> offres, Set<Demande> demandes) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -41,6 +43,8 @@ public class User {
         this.sexe = sexe;
         this.email = email;
         this.password = password;
+        this.offres = offres;
+        this.demandes = demandes;
     }
 
     public Long getId() {
@@ -107,17 +111,35 @@ public class User {
         this.password = password;
     }
 
+    public Set<Offre> getOffres() {
+        return offres;
+    }
+
+    public void setOffres(Offre offre) {
+        this.offres.add(offre);
+    }
+
+    public Set<Demande> getDemandes() {
+        return demandes;
+    }
+
+    public void setDemandes(Demande demande) {
+        this.demandes.add(demande)  ;
+    }
+
     @Override
     public String toString() {
-        return "{" +
-                "id:" + id +
-                ", nom:'" + nom + '\'' +
-                ", prenom:'" + prenom + '\'' +
-                ", adresse:'" + adresse + '\'' +
-                ", telephone:'" + telephone + '\'' +
-                ", sexe:'" + sexe + '\'' +
-                ", email:'" + email + '\'' +
-                ", password:'" + password + '\'' +
+        return "User{" +
+                "id=" + id +
+                ", nom='" + nom + '\'' +
+                ", prenom='" + prenom + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", telephone='" + telephone + '\'' +
+                ", sexe='" + sexe + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", offres=" + offres +
+                ", demandes=" + demandes +
                 '}';
     }
 }

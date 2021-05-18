@@ -1,45 +1,36 @@
 package com.example.helpify.model;
 
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 public class Demande {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String titre;
-    private String categorie;
+    private String typeActivite;
     private String description;
     private String adresse;
     private String etat;
 
+    @ManyToOne
+    @JoinColumn(name="user_id", nullable=false)
+    private User user ;
+
+
     public Demande() {
     }
 
-    public Demande(long id, String titre, String categorie, String description, String adresse, String etat) {
+    public Demande(long id, String titre, String typeActivite, String description, String adresse, String etat, User user) {
         this.id = id;
         this.titre = titre;
-        this.categorie = categorie;
+        this.typeActivite = typeActivite;
         this.description = description;
         this.adresse = adresse;
         this.etat = etat;
-    }
-
-    @Override
-    public String toString() {
-        return "Demande{" +
-                "id=" + id +
-                ", titre='" + titre + '\'' +
-                ", categorie='" + categorie + '\'' +
-                ", description='" + description + '\'' +
-                ", adresse='" + adresse + '\'' +
-                ", etat='" + etat + '\'' +
-                '}';
+        this.user = user;
     }
 
     public long getId() {
@@ -58,12 +49,12 @@ public class Demande {
         this.titre = titre;
     }
 
-    public String getCategorie() {
-        return categorie;
+    public String getTypeActivite() {
+        return typeActivite;
     }
 
-    public void setCategorie(String categorie) {
-        this.categorie = categorie;
+    public void setTypeActivite(String typeActivite) {
+        this.typeActivite = typeActivite;
     }
 
     public String getDescription() {
@@ -88,5 +79,26 @@ public class Demande {
 
     public void setEtat(String etat) {
         this.etat = etat;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "Demande{" +
+                "id=" + id +
+                ", titre='" + titre + '\'' +
+                ", typeActivite='" + typeActivite + '\'' +
+                ", description='" + description + '\'' +
+                ", adresse='" + adresse + '\'' +
+                ", etat='" + etat + '\'' +
+                ", user=" + user +
+                '}';
     }
 }

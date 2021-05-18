@@ -18,7 +18,7 @@ public class GestionDemandeService {
 
         if (foundDemande == null) return false;
         foundDemande.setAdresse(demande.getAdresse());
-        foundDemande.setCategorie(demande.getCategorie());
+        foundDemande.setTypeActivite(demande.getTypeActivite());
         foundDemande.setDescription(demande.getDescription());
         foundDemande.setEtat(demande.getEtat());
         foundDemande.setTitre(demande.getTitre());
