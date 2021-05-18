@@ -8,9 +8,6 @@ import com.example.helpify.repository.UserRepository;
 public class GestionOffresService {
 
     public static Offre SaveOffre(Offre offre,String email, OffreRepository offreRepository, UserRepository userRepository) {
-
-
-
         User foundUser ;
         foundUser= userRepository.findUserByEmail(email);
 
@@ -24,6 +21,11 @@ public class GestionOffresService {
 
 
 
+
+    }
+    public static Offre DeleteOffre(long offreId,OffreRepository offreRepository){
+
+      return   offreRepository.deleteOffreById(offreId);
 
     }
 
