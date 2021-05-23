@@ -1,10 +1,14 @@
 package com.example.helpify.model;
 
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
 import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Set;
 
 @Entity
-@Table(name = "Users")
+@Table(name = "users")
 public class User {
 
     @Id
@@ -18,7 +22,16 @@ public class User {
     private String email;
     private String password;
 
+    @CreationTimestamp
+    private LocalDateTime createDateTime;
+
+    @UpdateTimestamp
+    private LocalDateTime updateDateTime;
+
+
+
     @OneToMany
+    @JoinColumn(name="user_offre")
     private Set<Offre> offres;
 
     @OneToMany
@@ -34,7 +47,8 @@ public class User {
         this.password = password;
     }
 
-    public User(Long id, String nom, String prenom, String adresse, String telephone, String sexe, String email, String password, Set<Offre> offres, Set<Demande> demandes) {
+
+    public User(Long id, String nom, String prenom, String adresse, String telephone, String sexe, String email, String password, LocalDateTime createDateTime, LocalDateTime updateDateTime, Set<Offre> offres, Set<Demande> demandes) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -43,9 +57,15 @@ public class User {
         this.sexe = sexe;
         this.email = email;
         this.password = password;
+        this.createDateTime = createDateTime;
+        this.updateDateTime = updateDateTime;
         this.offres = offres;
         this.demandes = demandes;
     }
+
+
+
+
 
     public Long getId() {
         return id;
@@ -127,6 +147,23 @@ public class User {
         this.demandes.add(demande)  ;
     }
 
+    public LocalDateTime getCreateDateTime() {
+        return createDateTime;
+    }
+
+    public void setCreateDateTime(LocalDateTime createDateTime) {
+        this.createDateTime = createDateTime;
+    }
+
+    public LocalDateTime getUpdateDateTime() {
+        return updateDateTime;
+    }
+
+    public void setUpdateDateTime(LocalDateTime updateDateTime) {
+        this.updateDateTime = updateDateTime;
+    }
+
+
     @Override
     public String toString() {
         return "User{" +
@@ -138,6 +175,8 @@ public class User {
                 ", sexe='" + sexe + '\'' +
                 ", email='" + email + '\'' +
                 ", password='" + password + '\'' +
+                ", createDateTime=" + createDateTime +
+                ", updateDateTime=" + updateDateTime +
                 ", offres=" + offres +
                 ", demandes=" + demandes +
                 '}';
