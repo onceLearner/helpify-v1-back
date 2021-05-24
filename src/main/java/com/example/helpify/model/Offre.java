@@ -27,19 +27,19 @@ public class Offre  {
     private float end_hour;
 
 
-    private float diametre;
+    private float perimetre;
     private float localisationX;
     private float localisationY;
     private String moyen_de_transport;
     private String type_activite;
 
-    public Offre(Long id, int start_day, int end_day, float start_hour, float end_hour, float diametre, @Size(min = 2, max = 2) float localisationX, float localisationY, String moyen_de_transport, String type_activite) {
+    public Offre(Long id, int start_day, int end_day, float start_hour, float end_hour, float perimetre, @Size(min = 2, max = 2) float localisationX, float localisationY, String moyen_de_transport, String type_activite) {
         this.id = id;
         this.start_day = start_day;
         this.end_day = end_day;
         this.start_hour = start_hour;
         this.end_hour = end_hour;
-        this.diametre = diametre;
+        this.perimetre = perimetre;
         this.localisationX = localisationX;
         this.localisationY = localisationY;
         this.moyen_de_transport = moyen_de_transport;
@@ -96,12 +96,12 @@ public class Offre  {
         this.end_hour = end_hour;
     }
 
-    public float getDiametre() {
-        return diametre;
+    public float getPerimetre() {
+        return perimetre;
     }
 
-    public void setDiametre(float diametre) {
-        this.diametre = diametre;
+    public void setPerimetre(float perimetre) {
+        this.perimetre = perimetre;
     }
 
     public float getLocalisationX() {
@@ -140,8 +140,8 @@ public class Offre  {
         return type_activite;
     }
 
-    public void setType_actvitees(String type_actvitees) {
-        this.type_activite = type_actvitees;
+    public void setType_actvitees(String type_actvite) {
+        this.type_activite = type_actvite;
     }
 
     @Override
@@ -153,7 +153,7 @@ public class Offre  {
                 ", end_day=" + end_day +
                 ", start_hour=" + start_hour +
                 ", end_hour=" + end_hour +
-                ", diametre=" + diametre +
+                ", perimetre=" + perimetre +
                 ", localisationX=" + localisationX +
                 ", localisationY=" + localisationY +
                 ", moyen_de_transport='" + moyen_de_transport + '\'' +

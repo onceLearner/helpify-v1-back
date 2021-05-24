@@ -71,7 +71,7 @@ public class GestionOffres {
 
             if(offreToUpdate!=null) {
                 offreToUpdate.setType_activite(offre.getType_activite());
-                offreToUpdate.setDiametre(offre.getDiametre());
+                offreToUpdate.setPerimetre(offre.getPerimetre());
                 offreToUpdate.setStart_day(offre.getStart_day());
                 offreToUpdate.setEnd_day(offre.getEnd_day());
                 offreToUpdate.setStart_hour(offre.getStart_hour());
