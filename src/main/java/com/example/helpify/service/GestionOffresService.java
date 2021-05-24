@@ -22,13 +22,11 @@ public class GestionOffresService {
         else {
 
 
-               foundUser.setOffres(offre);
-              return offreRepository.save(offre);
+          return   offreRepository.save(offre);
 
 
 
         }
-
 
 
 

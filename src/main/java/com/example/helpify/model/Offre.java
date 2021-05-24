@@ -17,8 +17,9 @@ public class Offre  {
     private Long id;
 
 
-    @ManyToOne
-    @JoinColumn(name="user_id" ,referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
     private User user;
 
     private int start_day;
@@ -35,7 +36,6 @@ public class Offre  {
 
     public Offre(Long id, int start_day, int end_day, float start_hour, float end_hour, float diametre, @Size(min = 2, max = 2) float localisationX, float localisationY, String moyen_de_transport, String type_activite) {
         this.id = id;
-//        this.user = user;
         this.start_day = start_day;
         this.end_day = end_day;
         this.start_hour = start_hour;
@@ -57,13 +57,13 @@ public class Offre  {
         this.id = id;
     }
 
-//    public User getUser() {
-//        return user;
-//    }
-//
-//    public void setUser(User user) {
-//        this.user = user;
-//    }
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
 
     public int getStart_day() {
         return start_day;
@@ -149,7 +149,7 @@ public class Offre  {
     public String toString() {
         return "Offre{" +
                 "id=" + id +
-//                ", user=" + user +
+                ", user=" + user.getEmail() +
                 ", start_day=" + start_day +
                 ", end_day=" + end_day +
                 ", start_hour=" + start_hour +

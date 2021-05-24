@@ -2,6 +2,7 @@ package com.example.helpify.controller;
 
 
 import com.example.helpify.model.Offre;
+import com.example.helpify.model.User;
 import com.example.helpify.repository.OffreRepository;
 import com.example.helpify.repository.UserRepository;
 import com.example.helpify.service.GestionOffresService;
@@ -29,8 +30,22 @@ public class GestionOffres {
 
     @PostMapping("/user/{userEmail}/offre/add")
     public Offre createComment(@PathVariable(value = "userEmail") String userEmail,
-                                 @Valid @RequestBody Offre offre) {
-      return GestionOffresService.SaveOffre(offre,userEmail,offreRepository,userRepository);
+                                 @Valid @RequestBody Offre offre)
+    {
+
+        User user=null;
+        user = userRepository.findUserByEmail(userEmail);
+         if(user !=null){
+                    offre.setUser(user);
+                    return  offreRepository.save(offre);
+        }
+        else
+         {
+             throw new NotFoundException("No user with this email/id " + userEmail);
+         }
+
+
+
 
     }
 

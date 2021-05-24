@@ -5,7 +5,8 @@ import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -30,12 +31,12 @@ public class User {
 
 
 
-    @OneToMany
-    @JoinColumn(name="user_offre")
-    private Set<Offre> offres;
+
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Offre> offres;
 
     @OneToMany
-    private Set<Demande> demandes;
+    private List<Demande> demandes;
 
 
     public User(){
@@ -48,7 +49,7 @@ public class User {
     }
 
 
-    public User(Long id, String nom, String prenom, String adresse, String telephone, String sexe, String email, String password, LocalDateTime createDateTime, LocalDateTime updateDateTime, Set<Offre> offres, Set<Demande> demandes) {
+    public User(Long id, String nom, String prenom, String adresse, String telephone, String sexe, String email, String password, LocalDateTime createDateTime, LocalDateTime updateDateTime) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
@@ -59,8 +60,7 @@ public class User {
         this.password = password;
         this.createDateTime = createDateTime;
         this.updateDateTime = updateDateTime;
-        this.offres = offres;
-        this.demandes = demandes;
+
     }
 
 
@@ -131,7 +131,7 @@ public class User {
         this.password = password;
     }
 
-    public Set<Offre> getOffres() {
+    public List<Offre> getOffres() {
         return offres;
     }
 
@@ -139,7 +139,7 @@ public class User {
         this.offres.add(offre);
     }
 
-    public Set<Demande> getDemandes() {
+    public List<Demande> getDemandes() {
         return demandes;
     }
 
