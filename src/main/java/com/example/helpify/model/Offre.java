@@ -13,7 +13,6 @@ import java.util.Arrays;
 public class Offre  {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
 

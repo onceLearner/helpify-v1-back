@@ -12,5 +12,6 @@ public interface OffreRepository extends JpaRepository<Offre,Long> {
     Offre findOffreById(long id);
 
     Offre deleteOffreById(long id);
+    Offre deleteById(long id);
 
 }

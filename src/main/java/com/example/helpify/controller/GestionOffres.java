@@ -9,6 +9,7 @@ import com.example.helpify.service.GestionOffresService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.transaction.Transactional;
 import javax.validation.Valid;
 import java.util.List;
 
@@ -23,13 +24,19 @@ public class GestionOffres {
     UserRepository userRepository;
 
 
+
     @GetMapping("/offre/offres")
     public List<Offre> getAllOffres() {
         return offreRepository.findAll();
     }
 
+
+
+
+
+
     @PostMapping("/user/{userEmail}/offre/add")
-    public Offre createComment(@PathVariable(value = "userEmail") String userEmail,
+    public Offre addOffre(@PathVariable(value = "userEmail") String userEmail,
                                  @Valid @RequestBody Offre offre)
     {
 
@@ -50,12 +57,81 @@ public class GestionOffres {
     }
 
 
-//    @DeleteMapping("/user/{userEmail}/offre/delete/{idOffer}")
-//    public Offre createComment(@PathVariable(value = "userEmail") String userEmail,@PathVariable(value = "idOffer") long )
-//    {
-//        return GestionOffresService.SaveOffre(offre,userEmail,offreRepository,userRepository);
-//
-//    }
+
+
+
+    @PutMapping("/user/{userEmail}/offre/update/{idOffer}")
+    public Offre updateOffre(@PathVariable(value = "userEmail") String userEmail,@PathVariable(value = "idOffer") long idOffre , @Valid @RequestBody Offre offre )
+    {
+        User user=null;
+        user = userRepository.findUserByEmail(userEmail);
+        if(user !=null){
+            Offre offreToUpdate = null;
+            offreToUpdate=offreRepository.findOffreById(idOffre);
+
+            if(offreToUpdate!=null) {
+                offreToUpdate.setType_activite(offre.getType_activite());
+                offreToUpdate.setDiametre(offre.getDiametre());
+                offreToUpdate.setStart_day(offre.getStart_day());
+                offreToUpdate.setEnd_day(offre.getEnd_day());
+                offreToUpdate.setStart_hour(offre.getStart_hour());
+                offreToUpdate.setEnd_hour(offre.getEnd_hour());
+                offreToUpdate.setMoyen_de_transport(offre.getMoyen_de_transport());
+                offreToUpdate.setLocalisationX(offre.getLocalisationX());
+                offreToUpdate.setLocalisationY(offre.getLocalisationY());
+
+                return  offreRepository.save(offreToUpdate);
+            }
+
+            else{
+                throw new NotFoundException("No offre with this id " + userEmail);
+            }
+
+
+
+        }
+        else
+        {
+            throw new NotFoundException("No user with this email/id " + userEmail);
+        }
+
+    }
+
+
+
+    @Transactional
+    @DeleteMapping("/user/{userEmail}/offre/delete/{idOffer}")
+    public String deleteOffre(@PathVariable(value = "userEmail") String userEmail,@PathVariable(value = "idOffer") long idOffre )
+    {
+        User user=null;
+        user = userRepository.findUserByEmail(userEmail);
+        if(user !=null){
+
+
+            try {
+                offreRepository.deleteById(((long) idOffre));
+
+                return "success";
+
+            }
+            catch (Exception e){
+                System.out.println(e);
+                }
+
+        }
+        else
+        {
+            throw new NotFoundException("No user with this email/id " + userEmail);
+        }
+
+        return "Error";
+
+    }
+
+
+
+
+
 
 
 
