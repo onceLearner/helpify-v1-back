@@ -1,6 +1,7 @@
 package com.example.helpify.controller;
 
 
+import com.example.helpify.model.Demande;
 import com.example.helpify.model.Offre;
 import com.example.helpify.model.User;
 import com.example.helpify.repository.OffreRepository;
@@ -97,6 +98,71 @@ public class GestionOffres {
         }
 
     }
+
+
+
+    @PutMapping("/user/{userEmail}/offre/play/{idOffer}")
+    public Offre playPauseOffre(@PathVariable(value = "userEmail") String userEmail,@PathVariable(value = "idOffer") long idOffre  )
+    {
+        User user=null;
+        user = userRepository.findUserByEmail(userEmail);
+        if(user !=null){
+            Offre offreToUpdate = null;
+            offreToUpdate=offreRepository.findOffreById(idOffre);
+
+            if(offreToUpdate!=null) {
+
+                offreToUpdate.setEtat("active");
+
+                return  offreRepository.save(offreToUpdate);
+            }
+
+            else{
+                throw new NotFoundException("No offre with this id " + userEmail);
+            }
+
+
+
+        }
+        else
+        {
+            throw new NotFoundException("No user with this email/id " + userEmail);
+        }
+
+    }
+
+
+
+    @PutMapping("/user/{userEmail}/offre/pause/{idOffer}")
+    public Offre PauseOffre(@PathVariable(value = "userEmail") String userEmail,@PathVariable(value = "idOffer") long idOffre  )
+    {
+        User user=null;
+        user = userRepository.findUserByEmail(userEmail);
+        if(user !=null){
+            Offre offreToUpdate = null;
+            offreToUpdate=offreRepository.findOffreById(idOffre);
+
+            if(offreToUpdate!=null) {
+
+                offreToUpdate.setEtat("pause");
+
+                return  offreRepository.save(offreToUpdate);
+            }
+
+            else{
+                throw new NotFoundException("No offre with this id " + userEmail);
+            }
+
+
+
+        }
+        else
+        {
+            throw new NotFoundException("No user with this email/id " + userEmail);
+        }
+
+    }
+
 
 
 

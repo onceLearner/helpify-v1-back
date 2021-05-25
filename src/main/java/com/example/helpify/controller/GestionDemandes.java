@@ -105,6 +105,11 @@ public class GestionDemandes {
 
 
 
+
+
+
+
+
     @Transactional
     @DeleteMapping("/user/{userEmail}/demande/delete/{iddemande}")
     public String deleteDemande(@PathVariable(value = "userEmail") String userEmail,@PathVariable(value = "idDemande") long idDemande )
