@@ -17,7 +17,7 @@ public class GestionDemandeService {
         foundDemande = demandeRepository.findDemandeById(demande.getId());
 
         if (foundDemande == null) return false;
-        foundDemande.setAdresse(demande.getAdresse());
+
         foundDemande.setTypeActivite(demande.getTypeActivite());
         foundDemande.setDescription(demande.getDescription());
         foundDemande.setEtat(demande.getEtat());

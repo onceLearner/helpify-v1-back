@@ -74,11 +74,12 @@ public class GestionOffres {
                 offreToUpdate.setPerimetre(offre.getPerimetre());
                 offreToUpdate.setStart_day(offre.getStart_day());
                 offreToUpdate.setEnd_day(offre.getEnd_day());
-                offreToUpdate.setStart_hour(offre.getStart_hour());
-                offreToUpdate.setEnd_hour(offre.getEnd_hour());
+                offreToUpdate.setStart_time(offre.getStart_time());
+                offreToUpdate.setEnd_time(offre.getEnd_time());
                 offreToUpdate.setMoyen_de_transport(offre.getMoyen_de_transport());
                 offreToUpdate.setLocalisationX(offre.getLocalisationX());
                 offreToUpdate.setLocalisationY(offre.getLocalisationY());
+                offreToUpdate.setEtat(offre.getEtat());
 
                 return  offreRepository.save(offreToUpdate);
             }

@@ -1,34 +1,51 @@
 package com.example.helpify.model;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.util.Date;
 
 @Entity
 public class Demande {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
     private String titre;
-    private String typeActivite;
+    private String type_activite;
     private String description;
-    private String adresse;
+    private Float localisationX;
+    private Float localisationY;
+
+    @JsonFormat(pattern = "yyyy-MM-dd")
+    private LocalDate date;
+
+   private LocalTime time;
+
+
     private String etat;
 
-    @ManyToOne
-    @JoinColumn(name="user_id", nullable=false)
-    private User user ;
+    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "user_id", nullable = false)
+    @JsonIgnore
+    private User user;
 
 
     public Demande() {
     }
 
-    public Demande(long id, String titre, String typeActivite, String description, String adresse, String etat, User user) {
+    public Demande(long id, String titre, String type_activite, String description, Float localisationX, Float localisationY, LocalDate date, LocalTime time, String etat, User user) {
         this.id = id;
         this.titre = titre;
-        this.typeActivite = typeActivite;
+        this.type_activite = type_activite;
         this.description = description;
-        this.adresse = adresse;
+        this.localisationX = localisationX;
+        this.localisationY = localisationY;
+        this.date = date;
+        this.time = time;
         this.etat = etat;
         this.user = user;
     }
@@ -50,11 +67,11 @@ public class Demande {
     }
 
     public String getTypeActivite() {
-        return typeActivite;
+        return type_activite;
     }
 
-    public void setTypeActivite(String typeActivite) {
-        this.typeActivite = typeActivite;
+    public void setTypeActivite(String type_activite) {
+        this.type_activite = type_activite;
     }
 
     public String getDescription() {
@@ -65,13 +82,7 @@ public class Demande {
         this.description = description;
     }
 
-    public String getAdresse() {
-        return adresse;
-    }
 
-    public void setAdresse(String adresse) {
-        this.adresse = adresse;
-    }
 
     public String getEtat() {
         return etat;
@@ -89,14 +100,57 @@ public class Demande {
         this.user = user;
     }
 
+    public String getType_activite() {
+        return type_activite;
+    }
+
+    public void setType_activite(String type_activite) {
+        this.type_activite = type_activite;
+    }
+
+    public Float getLocalisationX() {
+        return localisationX;
+    }
+
+    public void setLocalisationX(Float localisationX) {
+        this.localisationX = localisationX;
+    }
+
+    public Float getLocalisationY() {
+        return localisationY;
+    }
+
+    public void setLocalisationY(Float localisationY) {
+        this.localisationY = localisationY;
+    }
+
+    public LocalDate getDate() {
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
     @Override
     public String toString() {
         return "Demande{" +
                 "id=" + id +
                 ", titre='" + titre + '\'' +
-                ", typeActivite='" + typeActivite + '\'' +
+                ", type_activite='" + type_activite + '\'' +
                 ", description='" + description + '\'' +
-                ", adresse='" + adresse + '\'' +
+                ", localisationX=" + localisationX +
+                ", localisationY=" + localisationY +
+                ", date=" + date +
+                ", time=" + time +
                 ", etat='" + etat + '\'' +
                 ", user=" + user +
                 '}';

@@ -1,45 +1,146 @@
 package com.example.helpify.controller;
 
+
 import com.example.helpify.model.Demande;
+import com.example.helpify.model.Offre;
 import com.example.helpify.model.User;
 import com.example.helpify.repository.DemandeRepository;
+import com.example.helpify.repository.OffreRepository;
 import com.example.helpify.repository.UserRepository;
-import com.example.helpify.service.EditProfil;
-import com.example.helpify.service.GestionDemandeService;
+import com.example.helpify.service.GestionOffresService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import javax.transaction.Transactional;
+import javax.validation.Valid;
+import java.util.List;
 
 @RestController
-@CrossOrigin("*")
+@CrossOrigin
 public class GestionDemandes {
 
     @Autowired
     DemandeRepository demandeRepository;
 
-    @PostMapping("/demande/add")
-    public ResponseEntity<?> AjouterController (@RequestBody Demande demande) {
+    @Autowired
+    UserRepository userRepository;
 
 
-        return  ResponseEntity.ok().body(GestionDemandeService.ajouterDemande(demande,demandeRepository));
+
+    @GetMapping("/demande/demandes")
+    public List<Demande> getAllDemandes() {
+        return demandeRepository.findAll();
+    }
+
+
+
+
+
+
+    @PostMapping("/user/{userEmail}/demande/add")
+    public Demande addDemande(@PathVariable(value = "userEmail") String userEmail,
+                          @Valid @RequestBody Demande demande)
+    {
+
+        User user=null;
+        user = userRepository.findUserByEmail(userEmail);
+        if(user !=null){
+            demande.setUser(user);
+            return  demandeRepository.save(demande);
+        }
+        else
+        {
+            throw new NotFoundException("No user with this email/id " + userEmail);
+        }
+
+
+
 
     }
 
-    @PostMapping("/demande/edit")
-    public ResponseEntity<?> ModifierController (@RequestBody Demande demande) {
 
-        return  ResponseEntity.ok().body(GestionDemandeService.modifierDemande(demande,demandeRepository));
+
+
+
+    @PutMapping("/user/{userEmail}/demande/update/{idDemande}")
+    public Demande updateDemande(@PathVariable(value = "userEmail") String userEmail,@PathVariable(value = "idDemande") long idDemande , @Valid @RequestBody Demande demande )
+    {
+        User user=null;
+        user = userRepository.findUserByEmail(userEmail);
+        if(user !=null){
+            Demande demandeToUpdate = null;
+            demandeToUpdate=demandeRepository.findDemandeById(idDemande);
+
+            if(demandeToUpdate!=null) {
+
+
+                demandeToUpdate.setTitre(demande.getTitre());
+                demandeToUpdate.setDescription(demande.getDescription());
+                demandeToUpdate.setType_activite(demande.getType_activite());
+                demandeToUpdate.setLocalisationX(demande.getLocalisationX());
+                demandeToUpdate.setLocalisationY(demande.getLocalisationY());
+                demandeToUpdate.setTime(demandeToUpdate.getTime());
+                demandeToUpdate.setDate(demande.getDate());
+                demandeToUpdate.setEtat(demande.getEtat());
+
+
+
+
+                return  demandeRepository.save(demandeToUpdate);
+            }
+
+            else{
+                throw new NotFoundException("No demande with this id " + userEmail);
+            }
+
+
+
+        }
+        else
+        {
+            throw new NotFoundException("No user with this email/id " + userEmail);
+        }
 
     }
 
-    @PostMapping("/demande/delete")
-    public ResponseEntity<?> SupprimerController (@RequestBody long id) {
 
 
-        return  ResponseEntity.ok().body(GestionDemandeService.supprimerDemande(id, demandeRepository));
+    @Transactional
+    @DeleteMapping("/user/{userEmail}/demande/delete/{iddemande}")
+    public String deleteDemande(@PathVariable(value = "userEmail") String userEmail,@PathVariable(value = "idDemande") long idDemande )
+    {
+        User user=null;
+        user = userRepository.findUserByEmail(userEmail);
+        if(user !=null){
+
+
+            try {
+                demandeRepository.deleteById(((long) idDemande));
+
+                return "success";
+
+            }
+            catch (Exception e){
+                System.out.println(e);
+            }
+
+        }
+        else
+        {
+            throw new NotFoundException("No user with this email/id " + userEmail);
+        }
+
+        return "Error";
 
     }
+
+
+
+
+
+
+
+
+
+
 }

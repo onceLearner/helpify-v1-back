@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
+import java.time.LocalTime;
 import java.util.Arrays;
 
 @Entity // this was commented
@@ -23,8 +24,9 @@ public class Offre  {
 
     private int start_day;
     private int end_day;
-    private float start_hour;
-    private float end_hour;
+
+    private LocalTime start_time;
+    private LocalTime end_time;
 
 
     private float perimetre;
@@ -32,18 +34,21 @@ public class Offre  {
     private float localisationY;
     private String moyen_de_transport;
     private String type_activite;
+    private String etat;
 
-    public Offre(Long id, int start_day, int end_day, float start_hour, float end_hour, float perimetre, @Size(min = 2, max = 2) float localisationX, float localisationY, String moyen_de_transport, String type_activite) {
+    public Offre(Long id, User user, int start_day, int end_day, LocalTime start_time, LocalTime end_time, float perimetre, float localisationX, float localisationY, String moyen_de_transport, String type_activite, String etat) {
         this.id = id;
+        this.user = user;
         this.start_day = start_day;
         this.end_day = end_day;
-        this.start_hour = start_hour;
-        this.end_hour = end_hour;
+        this.start_time = start_time;
+        this.end_time = end_time;
         this.perimetre = perimetre;
         this.localisationX = localisationX;
         this.localisationY = localisationY;
         this.moyen_de_transport = moyen_de_transport;
         this.type_activite = type_activite;
+        this.etat = etat;
     }
 
     public Offre () {}
@@ -80,20 +85,20 @@ public class Offre  {
         this.end_day = end_day;
     }
 
-    public float getStart_hour() {
-        return start_hour;
+    public LocalTime getStart_time() {
+        return start_time;
     }
 
-    public void setStart_hour(float start_hour) {
-        this.start_hour = start_hour;
+    public void setStart_time(LocalTime start_time) {
+        this.start_time = start_time;
     }
 
-    public float getEnd_hour() {
-        return end_hour;
+    public LocalTime getEnd_time() {
+        return end_time;
     }
 
-    public void setEnd_hour(float end_hour) {
-        this.end_hour = end_hour;
+    public void setEnd_time(LocalTime end_time) {
+        this.end_time = end_time;
     }
 
     public float getPerimetre() {
@@ -144,20 +149,30 @@ public class Offre  {
         this.type_activite = type_actvite;
     }
 
+
+    public String getEtat() {
+        return etat;
+    }
+
+    public void setEtat(String etat) {
+        this.etat = etat;
+    }
+
     @Override
     public String toString() {
         return "Offre{" +
                 "id=" + id +
-                ", user=" + user.getEmail() +
+                ", user=" + user +
                 ", start_day=" + start_day +
                 ", end_day=" + end_day +
-                ", start_hour=" + start_hour +
-                ", end_hour=" + end_hour +
+                ", start_time=" + start_time +
+                ", end_time=" + end_time +
                 ", perimetre=" + perimetre +
                 ", localisationX=" + localisationX +
                 ", localisationY=" + localisationY +
                 ", moyen_de_transport='" + moyen_de_transport + '\'' +
                 ", type_activite='" + type_activite + '\'' +
+                ", etat='" + etat + '\'' +
                 '}';
     }
 }
