@@ -8,6 +8,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.time.LocalTime;
 import java.util.Arrays;
+import java.util.List;
 
 @Entity // this was commented
 @Table(name = "offre")
@@ -21,6 +22,10 @@ public class Offre  {
     @JoinColumn(name = "user_id", nullable = false)
     @JsonIgnore
     private User user;
+
+
+    @OneToMany(mappedBy = "offre",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<DemandeOffre> demandeOffres ;
 
     private int start_day;
     private int end_day;
@@ -36,9 +41,10 @@ public class Offre  {
     private String type_activite;
     private String etat;
 
-    public Offre(Long id, User user, int start_day, int end_day, LocalTime start_time, LocalTime end_time, float perimetre, float localisationX, float localisationY, String moyen_de_transport, String type_activite, String etat) {
+    public Offre(Long id, User user, List<DemandeOffre> demandeOffres, int start_day, int end_day, LocalTime start_time, LocalTime end_time, float perimetre, float localisationX, float localisationY, String moyen_de_transport, String type_activite, String etat) {
         this.id = id;
         this.user = user;
+        this.demandeOffres = demandeOffres;
         this.start_day = start_day;
         this.end_day = end_day;
         this.start_time = start_time;
@@ -156,6 +162,14 @@ public class Offre  {
 
     public void setEtat(String etat) {
         this.etat = etat;
+    }
+
+    public List<DemandeOffre> getDemandeOffres() {
+        return demandeOffres;
+    }
+
+    public void setDemandeOffres(DemandeOffre demandeOffre) {
+        this.demandeOffres.add( demandeOffre);
     }
 
     @Override

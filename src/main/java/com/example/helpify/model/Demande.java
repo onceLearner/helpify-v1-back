@@ -34,10 +34,15 @@ public class Demande {
     private User user;
 
 
+    @OneToOne(mappedBy = "demande")
+    @JsonIgnore
+    private DemandeOffre demandeOffre;
+
+
     public Demande() {
     }
 
-    public Demande(long id, String titre, String type_activite, String description, Float localisationX, Float localisationY, LocalDate date, LocalTime time, String etat, User user) {
+    public Demande(long id, String titre, String type_activite, String description, Float localisationX, Float localisationY, LocalDate date, LocalTime time, String etat, User user,DemandeOffre demandeOffre) {
         this.id = id;
         this.titre = titre;
         this.type_activite = type_activite;
@@ -48,6 +53,7 @@ public class Demande {
         this.time = time;
         this.etat = etat;
         this.user = user;
+        this.demandeOffre=demandeOffre;
     }
 
     public long getId() {
@@ -140,6 +146,14 @@ public class Demande {
         this.time = time;
     }
 
+    public DemandeOffre getDemandeOffre() {
+        return demandeOffre;
+    }
+
+    public void setDemandeOffre(DemandeOffre demandeOffre) {
+        this.demandeOffre = demandeOffre;
+    }
+
     @Override
     public String toString() {
         return "Demande{" +
@@ -153,6 +167,7 @@ public class Demande {
                 ", time=" + time +
                 ", etat='" + etat + '\'' +
                 ", user=" + user +
+                ",demandeOffre ="+demandeOffre+
                 '}';
     }
 }
