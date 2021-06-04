@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.validation.Valid;
 import java.util.List;
 
 public class GestionAdmin {
@@ -23,7 +24,7 @@ public class GestionAdmin {
     }
 
     @PostMapping("/admin/add")
-    private Boolean addAdmin (@RequestBody Admin admin){
+    private Boolean addAdmin (@Valid @RequestBody Admin admin){
         adminRepository.save(admin);
         return true;
     }
