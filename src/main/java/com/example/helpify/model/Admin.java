@@ -4,21 +4,21 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import org.hibernate.validator.constraints.UniqueElements;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
-
 public class Admin {
 
+
     @Id
-    private long id;
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private  long id;
 
     private String firstName;
     private String lastName;
     private String password;
+
     @Column(unique = true)
     private String username;
 
@@ -29,6 +29,7 @@ public class Admin {
     @UpdateTimestamp
     private LocalDateTime updateDateTime;
 
+    public Admin (){};
 
     public Admin(long id,String username, String firstName, String lastName, String password, LocalDateTime createDateTime, LocalDateTime updateDateTime) {
         this.id = id;
