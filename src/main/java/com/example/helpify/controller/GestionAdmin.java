@@ -28,7 +28,7 @@ public class GestionAdmin {
         return true;
     }
 
-    @GetMapping("/admin/login?useranme={username}&password={password}")
+    @GetMapping("/admin/login")
     private Admin loginAdmin(@RequestParam (name = "username") String username,@RequestParam(name = "password") String password  ) {
 
 
