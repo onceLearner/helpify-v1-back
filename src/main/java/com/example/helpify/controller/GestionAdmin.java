@@ -34,7 +34,7 @@ public class GestionAdmin {
 
         Admin foundAdmin=null;
 
-        foundAdmin=adminRepository.findAdminByUsernameAAndPassword(username,password);
+        foundAdmin=adminRepository.findAdminByUsernameAndPassword(username,password);
         return  foundAdmin;
 
 
