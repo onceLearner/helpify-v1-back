@@ -17,7 +17,7 @@ public class GestionAdmin {
     AdminRepository adminRepository;
 
 
-    @GetMapping("admin/admins")
+    @GetMapping("/admin/admins")
     private List<Admin> getAllAdmins () {
         return adminRepository.findAll();
     }
