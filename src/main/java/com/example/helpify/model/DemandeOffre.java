@@ -2,6 +2,7 @@ package com.example.helpify.model;
 
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -23,9 +24,9 @@ public class DemandeOffre {
     private Demande demande;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "offre_id", nullable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties({"demandeOffres","createDateTime","updateDateTime",})
     private Offre offre;
 
 
@@ -38,12 +39,15 @@ public class DemandeOffre {
     private String idOffreur;
     private String idDemandeur;
 
+    private float noteOffreur;
+
+
 
     private String commentOffreur ;
     private String commentDemandeur;
 
 
-    public DemandeOffre(long id, Demande demande, Offre offre, LocalDateTime createDateTime, LocalDateTime updateDateTime, String idOffreur, String idDemandeur, String commentOffreur, String commentDemandeur,String etat) {
+    public DemandeOffre(long id, Demande demande, Offre offre,float noteOffreur, LocalDateTime createDateTime, LocalDateTime updateDateTime, String idOffreur, String idDemandeur, String commentOffreur, String commentDemandeur,String etat) {
         this.id = id;
         this.demande = demande;
         this.offre = offre;
@@ -54,6 +58,7 @@ public class DemandeOffre {
         this.commentOffreur = commentOffreur;
         this.commentDemandeur = commentDemandeur;
         this.etat= etat;
+        this.noteOffreur=noteOffreur;
     }
 
     public DemandeOffre() {
@@ -140,17 +145,26 @@ public class DemandeOffre {
         this.etat = etat;
     }
 
+    public float getNoteOffreur() {
+        return noteOffreur;
+    }
+
+    public void setNoteOffreur(float noteOffreur) {
+        this.noteOffreur = noteOffreur;
+    }
+
     @Override
     public String toString() {
         return "DemandeOffre{" +
                 "id=" + id +
-                ",etat="+etat+
+                ", etat='" + etat + '\'' +
                 ", demande=" + demande +
                 ", offre=" + offre +
                 ", createDateTime=" + createDateTime +
                 ", updateDateTime=" + updateDateTime +
                 ", idOffreur='" + idOffreur + '\'' +
                 ", idDemandeur='" + idDemandeur + '\'' +
+                ", noteOffreur=" + noteOffreur +
                 ", commentOffreur='" + commentOffreur + '\'' +
                 ", commentDemandeur='" + commentDemandeur + '\'' +
                 '}';

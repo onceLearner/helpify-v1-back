@@ -28,14 +28,12 @@ public class GestionDemandeOffre {
     OffreRepository offreRepository;
 
 
-
-
     @GetMapping("/demandeOffre/demandeOffres")
     public List<DemandeOffre> getAllDemandeOffres() {
         return demandeOffreRepository.findAll();
     }
 
-    @PostMapping("demandeOffre/add/{idDemande}/{idOffre}")
+    @PostMapping("/demandeOffre/add/{idDemande}/{idOffre}")
     public DemandeOffre addDemandeOffre (@Valid @RequestBody DemandeOffre demandeOffre,@PathVariable Long idOffre, @PathVariable Long idDemande){
 
         System.out.println("idOffre="+idOffre);

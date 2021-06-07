@@ -3,6 +3,7 @@ package com.example.helpify.model;
 //Non terminee
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
@@ -18,9 +19,9 @@ public class Offre  {
     private Long id;
 
 
-    @ManyToOne(fetch = FetchType.LAZY, optional = false)
+    @ManyToOne( optional = false)
     @JoinColumn(name = "user_id", nullable = false)
-    @JsonIgnore
+    @JsonIgnoreProperties({"offres","demandes","createDateTime","updateDateTime","telephone","password"})
     private User user;
 
 
