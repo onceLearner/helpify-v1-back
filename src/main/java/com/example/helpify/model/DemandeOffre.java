@@ -18,7 +18,7 @@ public class DemandeOffre {
     private String etat;
 
 
-
+// just a comment
 
     @ManyToOne( optional = false)
     @JoinColumn(name = "demande_id", nullable = false)
