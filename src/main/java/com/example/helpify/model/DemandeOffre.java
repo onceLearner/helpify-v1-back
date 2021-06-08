@@ -20,7 +20,8 @@ public class DemandeOffre {
 
 
 
-    @OneToOne
+    @ManyToOne( optional = false)
+    @JoinColumn(name = "demande_id", nullable = false)
     private Demande demande;
 
 
@@ -41,13 +42,14 @@ public class DemandeOffre {
 
     private float noteOffreur;
 
+    private int isSeen=0;
 
 
     private String commentOffreur ;
     private String commentDemandeur;
 
 
-    public DemandeOffre(long id, Demande demande, Offre offre,float noteOffreur, LocalDateTime createDateTime, LocalDateTime updateDateTime, String idOffreur, String idDemandeur, String commentOffreur, String commentDemandeur,String etat) {
+    public DemandeOffre(long id, Demande demande, Offre offre,float noteOffreur, LocalDateTime createDateTime, LocalDateTime updateDateTime, String idOffreur, String idDemandeur, String commentOffreur, String commentDemandeur,String etat,int isSeen) {
         this.id = id;
         this.demande = demande;
         this.offre = offre;
@@ -59,6 +61,7 @@ public class DemandeOffre {
         this.commentDemandeur = commentDemandeur;
         this.etat= etat;
         this.noteOffreur=noteOffreur;
+        this.isSeen=isSeen;
     }
 
     public DemandeOffre() {
@@ -145,6 +148,14 @@ public class DemandeOffre {
         this.etat = etat;
     }
 
+    public int getIsSeen() {
+        return isSeen;
+    }
+
+    public void setIsSeen(int isSeen) {
+        this.isSeen = isSeen;
+    }
+
     public float getNoteOffreur() {
         return noteOffreur;
     }
@@ -165,6 +176,7 @@ public class DemandeOffre {
                 ", idOffreur='" + idOffreur + '\'' +
                 ", idDemandeur='" + idDemandeur + '\'' +
                 ", noteOffreur=" + noteOffreur +
+                ", isSeen=" + isSeen +
                 ", commentOffreur='" + commentOffreur + '\'' +
                 ", commentDemandeur='" + commentDemandeur + '\'' +
                 '}';

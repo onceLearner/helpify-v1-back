@@ -10,6 +10,7 @@ import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.Date;
+import java.util.List;
 
 @Entity
 public class Demande {
@@ -36,15 +37,15 @@ public class Demande {
     private User user;
 
 
-    @OneToOne(mappedBy = "demande")
-    @JsonIgnore
-    private DemandeOffre demandeOffre;
+    @OneToMany(mappedBy = "demande")
+    @JsonIgnoreProperties({"demande"})
+    private List<DemandeOffre> demandeOffres;
 
 
     public Demande() {
     }
 
-    public Demande(long id, String titre, String type_activite, String description, Float localisationX, Float localisationY, LocalDate date, LocalTime time, String etat, User user,DemandeOffre demandeOffre) {
+    public Demande(long id, String titre, String type_activite, String description, Float localisationX, Float localisationY, LocalDate date, LocalTime time, String etat, User user,List<DemandeOffre> demandeOffre) {
         this.id = id;
         this.titre = titre;
         this.type_activite = type_activite;
@@ -55,7 +56,7 @@ public class Demande {
         this.time = time;
         this.etat = etat;
         this.user = user;
-        this.demandeOffre=demandeOffre;
+        this.demandeOffres=demandeOffres;
     }
 
     public long getId() {
@@ -148,13 +149,17 @@ public class Demande {
         this.time = time;
     }
 
-    public DemandeOffre getDemandeOffre() {
-        return demandeOffre;
+
+    public List<DemandeOffre> getDemandeOffres() {
+        return demandeOffres;
     }
 
-    public void setDemandeOffre(DemandeOffre demandeOffre) {
-        this.demandeOffre = demandeOffre;
+
+
+    public void setDemandeOffres(DemandeOffre demandeOffre) {
+        this.demandeOffres.add( demandeOffre);
     }
+
 
     @Override
     public String toString() {
@@ -169,7 +174,7 @@ public class Demande {
                 ", time=" + time +
                 ", etat='" + etat + '\'' +
                 ", user=" + user +
-                ",demandeOffre ="+demandeOffre+
+                ", demandeOffres=" + demandeOffres +
                 '}';
     }
 }

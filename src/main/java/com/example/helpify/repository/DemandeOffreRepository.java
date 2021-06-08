@@ -7,4 +7,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface DemandeOffreRepository extends JpaRepository<DemandeOffre,Long> {
 
     public DemandeOffre findDemandeOffreById(long id);
+    public DemandeOffre  findFirstById(long id);
 }
