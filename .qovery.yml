@@ -1,0 +1,11 @@
+---
+application:
+  name: "backend-help"
+  project: "reda"
+  organization: "QoveryCommunity"
+routers:
+- name: "main-backend-help"
+  routes:
+  - application_name: "backend-help"
+    paths:
+    - "/*"
